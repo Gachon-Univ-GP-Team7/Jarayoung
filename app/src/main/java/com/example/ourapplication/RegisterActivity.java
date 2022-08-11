@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth; //파이어베이스 인증
     private DatabaseReference mDatabaseRef; //실시간 데이터 베이스 서버에 연동시킬 수 있는 객체
-    private EditText edtEmail, edtPassword, edtCheckPwd; //회원가입 입력 필드
+    private EditText edtEmail, edtPassword, edtCheckPwd, edtId; //회원가입 입력 필드
     private Button btnRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("OurApplication");
 
+        edtId = findViewById(R.id.regiID);
         edtEmail = findViewById(R.id.regiEmail);
         edtPassword = findViewById(R.id.regiPass);
         btnRegister = findViewById(R.id.btnRegister);
@@ -44,10 +45,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //회원가입 처리 시작
-                String strEmail = edtEmail.getText().toString(); //사용자가 이메일을 입력한것을 가져와서 문자열로 변홚시켜 저장.
+                String strEmail = edtEmail.getText().toString(); //사용자가 이메일을 입력한것을 가져와서 문자열로 변환시켜 저장.
                 String strPwd = edtPassword.getText().toString();
                 String strCheckPwd = edtCheckPwd.getText().toString();
+                String strId = edtId.getText().toString();
 
+                //비밀번호 확인
                 if (!strPwd.equals(strCheckPwd)) {
                     Toast.makeText(RegisterActivity.this, "비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show();
                 } else {
@@ -63,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 account.setIdToken(firebaseUser.getUid());
                                 account.setEmailId(firebaseUser.getEmail());
                                 account.setPassword(strPwd);
+                                account.setID(strId);
 
                                 //setValue : database에 insert(삽입)하는 행위/ uid를 키값으로 하고 저 값들을 넣어줌.
                                 mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);

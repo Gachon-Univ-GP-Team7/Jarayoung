@@ -4,10 +4,19 @@ public class UserAccount {
     private String idToken; //firebase Uid(고유 토큰 정보)
     private String emailId;
     private String password;
+    private String ID;
     //추가적 정보 더 넣어도 됨.
 
     //(중요)firebase에서는 빈 생성자를 만들어줘야 데이터베이스를 할 때 오류가 안남.
     public UserAccount() {
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getIdToken() {

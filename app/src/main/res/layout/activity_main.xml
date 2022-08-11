@@ -12,6 +12,19 @@
         android:layout_height="wrap_content"
         android:text="로그아웃"
         />
-
+    <LinearLayout
+        android:id="@+id/home_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+    />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomTap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        app:menu="@menu/cmenu"
+    />
 
 </LinearLayout>
