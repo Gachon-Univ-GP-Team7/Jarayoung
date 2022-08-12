@@ -6,12 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:textSize="80dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/gangwon"
+        android:text="자라영"
+        />
 
     <EditText
         android:id="@+id/edtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop = "230dp"
+        android:layout_marginTop = "50dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
         android:ems="20"
