@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     //프래그먼트 화면 선언
     HomeFragment homeFragment;
-    mypageFragment mypageFragment;
+    MypageFragment mypageFragment;
+    SettingFragment settingFragment;
 
     LinearLayout body;
     BottomNavigationView bottomNavigationView;
@@ -29,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         homeFragment = new HomeFragment();
-        mypageFragment = new mypageFragment();
+        mypageFragment = new MypageFragment();
+        settingFragment = new SettingFragment();
 
 
         //초기 화면(프래그먼트) 설정// 이거 의미 다시 찾아보기
         getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
 
-        //bottomNavigationView.setSelectedItemId(R.id.home); //맨 처음 시작할 탭 설정
         //초기화
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.mypage:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, mypageFragment).commit();
+                        return true;
+                    case R.id.setting:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, settingFragment).commit();
                         return true;
                 }
                 return false;
