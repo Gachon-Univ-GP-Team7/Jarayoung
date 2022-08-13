@@ -1,18 +1,25 @@
 package com.example.ourapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
+
+    //프래그먼트 화면 선언
+    HomeFragment homeFragment;
+    mypageFragment mypageFragment;
 
     LinearLayout body;
     BottomNavigationView bottomNavigationView;
@@ -21,12 +28,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        homeFragment = new HomeFragment();
+        mypageFragment = new mypageFragment();
 
-//        bottomNavigationView.setSelectedItemId(R.id.home); //맨 처음 시작할 탭 설정
-//        //초기화
-//        body = findViewById(R.id.home_body);
-//        bottomNavigationView = findViewById(R.id.bottomTap);
-// 다시 해보기 안됨 시바
+
+        //초기 화면(프래그먼트) 설정// 이거 의미 다시 찾아보기
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
+
+        //bottomNavigationView.setSelectedItemId(R.id.home); //맨 처음 시작할 탭 설정
+        //초기화
+        bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
+                        return true;
+                    case R.id.mypage:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, mypageFragment).commit();
+                        return true;
+                }
+                return false;
+            }
+        });
+
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         Button btnLogout = findViewById(R.id.btnLogout);
