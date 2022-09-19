@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth; //파이어베이스 인증
     private DatabaseReference mDatabaseRef; //실시간 데이터 베이스 서버에 연동시킬 수 있는 객체
-    private EditText edtEmail, edtPassword, edtCheckPwd, edtId; //회원가입 입력 필드
+    private EditText edtEmail, edtPassword, edtCheckPwd, edtId, edtBabyName, edtBabyBorn; //회원가입 입력 필드
     private Button btnRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.regiEmail);
         edtPassword = findViewById(R.id.regiPass);
         btnRegister = findViewById(R.id.btnRegister);
+        edtBabyName = findViewById(R.id.babyName);
+        edtBabyBorn = findViewById(R.id.babyBorn);
 
         //비밀번호 확인은 여기서 바로 수행.
         //다르면 토스트 메시지 출력(나중에는 색이 변하거나 체크가 생겼으면 좋겠음)-> 회원가입 누를때 ?
@@ -49,6 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String strPwd = edtPassword.getText().toString();
                 String strCheckPwd = edtCheckPwd.getText().toString();
                 String strId = edtId.getText().toString();
+                String strBabyName = edtBabyName.getText().toString();
+                String strBabyBorn = edtBabyBorn.getText().toString();
 
                 //비밀번호 확인
                 if (!strPwd.equals(strCheckPwd)) {
@@ -67,6 +71,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 account.setEmailId(firebaseUser.getEmail());
                                 account.setPassword(strPwd);
                                 account.setID(strId);
+                                account.setBabyName(strBabyName);
+                                account.setBabyBorn(strBabyBorn);
 
                                 //setValue : database에 insert(삽입)하는 행위/ uid를 키값으로 하고 저 값들을 넣어줌.
                                 mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
