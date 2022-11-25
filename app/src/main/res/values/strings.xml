@@ -2,4 +2,29 @@
     <string name="app_name">OurApplication</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- in TestingFragment-->
+    <string name="move_test_header">행동 TEST</string>
+    <string name="move_test_desc">아이의 행동 발달 수준을 테스트 할 수 있어요</string>
+    <string name="voice_test_header">언어 TEST</string>
+    <string name="voice_test_desc">아이의 언어 발달 수준을 테스트 할 수 있어요</string>
+    <string name="get_video_txt">영상 파일 가져오기</string>
+    <string name="get_voice_txt">음성 파일 가져오기</string>
+    <string name="file_path_txt">파일 경로</string>
+    <string name="get_file_btn">가져오기</string>
+    <string name="warn_header_txt">주의사항</string>
+    <string-array name="video_warn_list">
+        <string>1. 주의사항 1</string>
+        <string>2. 주의사항 2</string>
+        <string>3. 주의사항 3</string>
+        <string>4. 주의사항 4</string>
+        <string>5. 주의사항 5</string>
+    </string-array>
+    <string-array name="voice_warn_list">
+        <string>1. 주의사항 1</string>
+        <string>2. 주의사항 2</string>
+        <string>3. 주의사항 3</string>
+        <string>4. 주의사항 4</string>
+        <string>5. 주의사항 5</string>
+    </string-array>
 </resources>
