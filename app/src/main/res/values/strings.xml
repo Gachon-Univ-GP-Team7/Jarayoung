@@ -14,17 +14,18 @@
     <string name="get_file_btn">가져오기</string>
     <string name="warn_header_txt">주의사항</string>
     <string-array name="video_warn_list">
-        <string>1. 주의사항 1</string>
-        <string>2. 주의사항 2</string>
-        <string>3. 주의사항 3</string>
-        <string>4. 주의사항 4</string>
-        <string>5. 주의사항 5</string>
+        <item>1. 주의사항 1</item>
+        <item>2. 주의사항 2</item>
+        <item>3. 주의사항 3</item>
+        <item>4. 주의사항 4</item>
+        <item>5. 주의사항 5</item>
     </string-array>
     <string-array name="voice_warn_list">
-        <string>1. 주의사항 1</string>
-        <string>2. 주의사항 2</string>
-        <string>3. 주의사항 3</string>
-        <string>4. 주의사항 4</string>
-        <string>5. 주의사항 5</string>
+        <item>1. 주의사항 1</item>
+        <item>2. 주의사항 2</item>
+        <item>3. 주의사항 3</item>
+        <item>4. 주의사항 4</item>
+        <item>5. 주의사항 5</item>
     </string-array>
+    <string name="conduct_test_txt">TEST 시작</string>
 </resources>
