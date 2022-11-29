@@ -62,18 +62,18 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("UserAccount").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>(){
-           @Override
-           public void onComplete(@NonNull Task<DataSnapshot> task){
-               if(!task.isSuccessful()) {
-                   Log.e("firebase", "Error getting data", task.getException());
-               }
-               else{
-                   Log.d("firebase", String.valueOf(task.getResult().getValue()));
-               }
-           }
-        });
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
+//        mDatabase.child("UserAccount").child().get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>(){
+//           @Override
+//           public void onComplete(@NonNull Task<DataSnapshot> task){
+//               if(!task.isSuccessful()) {
+//                   Log.e("firebase", "Error getting data", task.getException());
+//               }
+//               else{
+//                   Log.d("firebase", String.valueOf(task.getResult().getValue()));
+//               }
+//           }
+//        });
 
     }
 
