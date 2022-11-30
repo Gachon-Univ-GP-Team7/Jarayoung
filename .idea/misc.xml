@@ -11,6 +11,12 @@
         <entry key="..\:/Users/user/Documents/OurApplication/app/src/main/res/layout/login.xml" value="0.1" />
         <entry key="..\:/Users/user/Documents/OurApplication/app/src/main/res/layout/register.xml" value="0.2" />
         <entry key="..\:/Users/user/Documents/OurApplication/app/src/main/res/menu/cmenu.xml" value="0.176" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.5911458333333334" />
+        <entry key="app/src/main/res/layout/activity_testing.xml" value="0.34375" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5911458333333334" />
+        <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.5911458333333334" />
+        <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.5911458333333334" />
+        <entry key="app/src/main/res/layout/fragment_testing.xml" value="0.5911458333333334" />
       </map>
     </option>
   </component>
