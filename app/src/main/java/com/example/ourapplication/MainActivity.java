@@ -5,17 +5,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.ourapplication.Base.BaseResponse;
+import com.example.ourapplication.Service.ExampleService;
+import com.example.ourapplication.Utils.NetworkModule;
+import com.example.ourapplication.Utils.RetrofitInterface;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
+    private ExampleService exampleService = new ExampleService();
 
     //프래그먼트 화면 선언
     HomeFragment homeFragment;
@@ -71,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        String test = exampleService.callTestApi();
     }
 
 
