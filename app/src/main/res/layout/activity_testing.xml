@@ -160,7 +160,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="@string/conduct_test_txt"
-        app:layout_constraintRignt_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/warnTxt5"
         tools:layout_editor_absoluteX="264dp" />
 
