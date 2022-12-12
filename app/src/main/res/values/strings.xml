@@ -28,4 +28,11 @@
         <item>5. 주의사항 5</item>
     </string-array>
     <string name="conduct_test_txt">TEST 시작</string>
+
+    <string name="my_page_header">My Page</string>
+    <string name="my_page_desc">아이의 행동 발달 검사 기록을 볼 수 있어요</string>
+    <string name="my_page_list_desc">아이의 행동 발달 검사 기록 리스트를 볼 수 있어요</string>
+    <string name="lan_txt">언어 발달</string>
+    <string name="behavior_txt">행동 발달</string>
+    <string name="into_record">가져오기</string>
 </resources>

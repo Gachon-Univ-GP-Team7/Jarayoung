@@ -26,12 +26,14 @@
         <Button
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:textColor="@color/black"
             android:text="언어 발달"
             />
         <Button
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginStart="20dp"
+            android:textColor="@color/black"
             android:text="행동 발달"
             />
     </LinearLayout>
