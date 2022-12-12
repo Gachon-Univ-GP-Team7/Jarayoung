@@ -10,7 +10,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="홈 화면 프래그먼트" />
+        android:layout_marginTop="15dp"
+        android:text="안녕하세요! 자라영님"
+        android:textSize="30dp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -28,6 +31,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:textColor="@color/black"
+            android:textSize="10pt"
             android:text="언어 발달"
             />
         <Button
@@ -36,6 +40,7 @@
             android:layout_height="150dp"
             android:layout_marginStart="20dp"
             android:textColor="@color/black"
+            android:textSize="10pt"
             android:text="행동 발달"
             />
     </LinearLayout>
@@ -52,5 +57,42 @@
         android:fontFamily="@font/gangwon"
         android:textSize="40dp"
         android:layout_marginTop="280dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이름: 자라영"
+        android:textSize="20dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginStart="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="생년월일: 2020-12:10"
+        android:textSize="20dp"
+        android:layout_marginTop="385dp"
+        android:layout_marginStart="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="연령: 만 2세"
+        android:textSize="20dp"
+        android:layout_marginTop="420dp"
+        android:layout_marginStart="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="최근 검사 일자 : 2022-12-12"
+        android:textSize="20dp"
+        android:layout_marginTop="455dp"
+        android:layout_marginStart="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="최근 검사 결과 : (언어) 만 2세"
+        android:textSize="20dp"
+        android:layout_marginTop="490dp"
+        android:layout_marginStart="20dp"/>
+
 
 </FrameLayout>
