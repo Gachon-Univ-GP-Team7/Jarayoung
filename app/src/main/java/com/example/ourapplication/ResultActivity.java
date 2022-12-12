@@ -9,7 +9,7 @@ import android.widget.TextView;
 public class ResultActivity extends AppCompatActivity {
 
     private TextView typeTxt;
-
+    private TextView dateTxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +21,15 @@ public class ResultActivity extends AppCompatActivity {
         String date = intent.getStringExtra("testDate");
 
         typeTxt = (TextView)findViewById(R.id.typeTxt);
+        dateTxt = (TextView)findViewById(R.id.dateTxt);
 
         if(testMode.equalsIgnoreCase("VIDEO")){
-            typeTxt.setText("검사분야 : 행동발달\\n검사일자 : " + date);
+            typeTxt.setText("검사분야 : 행동발달");
+            dateTxt.setText("검사일자 : " + date);
         }
         else{
-            typeTxt.setText("검사분야 : 언어발달\\n검사일자 : " + date);
+            typeTxt.setText("검사분야 : 언어발달");
+            dateTxt.setText("검사일자 : " + date);
         }
     }
 }

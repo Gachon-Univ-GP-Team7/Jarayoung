@@ -55,7 +55,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="검사분야 : 언어발달\n검사일자 : 2022-02-22"
+            android:text="검사분야 : 언어발달"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/dateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
+            android:text="검사일자 : 2022-02-22"
             android:textColor="@color/black"
             android:textSize="20dp" />
 
