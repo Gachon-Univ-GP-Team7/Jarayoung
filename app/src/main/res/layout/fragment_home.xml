@@ -24,12 +24,14 @@
         android:layout_marginTop="100dp"
         android:gravity="center_horizontal">
         <Button
+            android:id="@+id/voice_btn"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:textColor="@color/black"
             android:text="언어 발달"
             />
         <Button
+            android:id="@+id/video_btn"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginStart="20dp"

@@ -2,6 +2,8 @@ package com.example.ourapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment homeFragment;
     MypageFragment mypageFragment;
     SettingFragment settingFragment;
+    MypagelistFragment mypageListFragment;
+    MypageresultFragment mypageresultFragment;
 
     LinearLayout body;
     BottomNavigationView bottomNavigationView;
@@ -41,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         homeFragment = new HomeFragment();
         mypageFragment = new MypageFragment();
+        mypageListFragment = new MypagelistFragment();
         settingFragment = new SettingFragment();
-
+        mypageresultFragment = new MypageresultFragment();
 
         //초기 화면(프래그먼트) 설정// 이거 의미 다시 찾아보기
         getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
@@ -82,8 +87,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String test = exampleService.callTestApi();
+        //String test = exampleService.callTestApi();
     }
 
-
+    public void fragmentChange(int index){
+        if(index == 1){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, mypageListFragment).commit();
+        }else if(index == 2){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, mypageresultFragment).commit();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.ourapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +22,8 @@ public class MypageFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    MainActivity mainActivity;
+    private ImageButton cal_btn;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -47,6 +51,18 @@ public class MypageFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity)getActivity();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mainActivity = null;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -56,9 +72,19 @@ public class MypageFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mypage, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_mypage, container, false);
+
+        cal_btn = rootView.findViewById(R.id.calendarImage);
+
+        cal_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.fragmentChange(1);
+            }
+        });
+
+        return rootView;
     }
 }

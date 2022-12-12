@@ -79,6 +79,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/voice1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -87,6 +88,7 @@
                 tools:ignore="MissingConstraints" />
 
             <Button
+                android:id="@+id/voice2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -95,6 +97,7 @@
                 tools:ignore="MissingConstraints" />
 
             <Button
+                android:id="@+id/voice3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -136,6 +139,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/video1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -144,6 +148,7 @@
                 tools:ignore="MissingConstraints" />
 
             <Button
+                android:id="@+id/video2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -152,6 +157,7 @@
                 tools:ignore="MissingConstraints" />
 
             <Button
+                android:id="@+id/video3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -162,18 +168,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        app:labelVisibilityMode="labeled"
-        app:itemBackground="@color/white"
-        app:menu="@menu/cmenu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
