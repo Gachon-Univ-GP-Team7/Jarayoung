@@ -1,6 +1,7 @@
 package com.example.ourapplication;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +37,9 @@ public class MypageFragment extends Fragment {
 
     MainActivity mainActivity;
     private ImageButton cal_btn;
+    private LineChart lineChart1;
+    private LineChart lineChart2;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -76,6 +92,9 @@ public class MypageFragment extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_mypage, container, false);
 
+        drawChart1(rootView);
+        drawChart2(rootView);
+
         cal_btn = rootView.findViewById(R.id.calendarImage);
 
         cal_btn.setOnClickListener(new View.OnClickListener() {
@@ -86,5 +105,103 @@ public class MypageFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    public void drawChart1(ViewGroup rootView){
+        lineChart1 = (LineChart) rootView.findViewById(R.id.voiceChart);
+
+        List<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(1, 1));
+        entries.add(new Entry(2, 2));
+        entries.add(new Entry(3, 0));
+        entries.add(new Entry(4, 4));
+        entries.add(new Entry(5, 3));
+
+        LineDataSet lineDataSet = new LineDataSet(entries, "발달 점수");
+        lineDataSet.setLineWidth(2);
+        lineDataSet.setCircleRadius(6);
+        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setCircleColorHole(Color.BLUE);
+        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setDrawCircleHole(true);
+        lineDataSet.setDrawCircles(true);
+        lineDataSet.setDrawHorizontalHighlightIndicator(false);
+        lineDataSet.setDrawHighlightIndicators(false);
+        lineDataSet.setDrawValues(false);
+
+        LineData lineData = new LineData(lineDataSet);
+        lineChart1.setData(lineData);
+
+        XAxis xAxis = lineChart1.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.enableGridDashedLine(8, 24, 0);
+
+        YAxis yLAxis = lineChart1.getAxisLeft();
+        yLAxis.setTextColor(Color.BLACK);
+
+        YAxis yRAxis = lineChart1.getAxisRight();
+        yRAxis.setDrawLabels(false);
+        yRAxis.setDrawAxisLine(false);
+        yRAxis.setDrawGridLines(false);
+
+        Description description = new Description();
+        description.setText("");
+
+        lineChart1.setDoubleTapToZoomEnabled(false);
+        lineChart1.setDrawGridBackground(false);
+        lineChart1.setDescription(description);
+        lineChart1.animateY(2000, Easing.EasingOption.EaseInCubic);
+        lineChart1.invalidate();
+
+    }
+
+    public void drawChart2(ViewGroup rootView){
+        lineChart2 = (LineChart) rootView.findViewById(R.id.videoChart);
+
+        List<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(1, 1));
+        entries.add(new Entry(2, 2));
+        entries.add(new Entry(3, 0));
+        entries.add(new Entry(4, 4));
+        entries.add(new Entry(5, 3));
+
+        LineDataSet lineDataSet = new LineDataSet(entries, "발달 점수");
+        lineDataSet.setLineWidth(2);
+        lineDataSet.setCircleRadius(6);
+        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setCircleColorHole(Color.BLUE);
+        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setDrawCircleHole(true);
+        lineDataSet.setDrawCircles(true);
+        lineDataSet.setDrawHorizontalHighlightIndicator(false);
+        lineDataSet.setDrawHighlightIndicators(false);
+        lineDataSet.setDrawValues(false);
+
+        LineData lineData = new LineData(lineDataSet);
+        lineChart2.setData(lineData);
+
+        XAxis xAxis = lineChart2.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.enableGridDashedLine(8, 24, 0);
+
+        YAxis yLAxis = lineChart2.getAxisLeft();
+        yLAxis.setTextColor(Color.BLACK);
+
+        YAxis yRAxis = lineChart2.getAxisRight();
+        yRAxis.setDrawLabels(false);
+        yRAxis.setDrawAxisLine(false);
+        yRAxis.setDrawGridLines(false);
+
+        Description description = new Description();
+        description.setText("");
+
+        lineChart2.setDoubleTapToZoomEnabled(false);
+        lineChart2.setDrawGridBackground(false);
+        lineChart2.setDescription(description);
+        lineChart2.animateY(2000, Easing.EasingOption.EaseInCubic);
+        lineChart2.invalidate();
+
     }
 }
