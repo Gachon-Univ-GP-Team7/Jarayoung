@@ -1,5 +1,6 @@
 package com.example.ourapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +30,8 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private Button voiceButton;
+    private Button videoButton;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -81,6 +85,28 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+
+        voiceButton = rootView.findViewById(R.id.voice_btn);
+        videoButton = rootView.findViewById(R.id.video_btn);
+
+        voiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), TestingActivity.class);
+                intent.putExtra("testMode", "VOICE");
+                startActivity(intent);
+            }
+        });
+
+        videoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TestingActivity.class);
+                intent.putExtra("testMode", "VIDEO");
+                startActivity(intent);
+            }
+        });
+        return rootView;
     }
 }

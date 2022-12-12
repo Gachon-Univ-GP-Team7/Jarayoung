@@ -3,16 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/lihen/AndroidStudioProjects/Jarayoung/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/lihen/AndroidStudioProjects/Jarayoung/app/src/main/res/layout/activity_testing.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/lihen/AndroidStudioProjects/Jarayoung/app/src/main/res/layout/fragment_home.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/lihen/AndroidStudioProjects/Jarayoung/app/src/main/res/layout/fragment_mypage.xml" value="0.264" />
-        <entry key="..\:/Users/lihen/AndroidStudioProjects/Jarayoung/app/src/main/res/layout/fragment_mypagelist.xml" value="0.21920289855072464" />
-        <entry key="..\:/Users/lihen/AndroidStudioProjects/Jarayoung/app/src/main/res/layout/fragment_mypageresult.xml" value="0.23505434782608695" />
-        <entry key="..\:/Users/lihen/AndroidStudioProjects/Jarayoung/app/src/main/res/layout/fragment_mypahe.xml" value="0.21920289855072464" />
-        <entry key="..\:/Users/lihen/AndroidStudioProjects/Jarayoung/app/src/main/res/layout/fragment_setting.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/lihen/AndroidStudioProjects/Jarayoung/app/src/main/res/layout/login.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/lihen/AndroidStudioProjects/Jarayoung/app/src/main/res/layout/register.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/Documents/OurApplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.213" />
         <entry key="..\:/Users/user/Documents/OurApplication/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/Users/user/Documents/OurApplication/app/src/main/res/layout/fragment_home.xml" value="0.12158054711246201" />
@@ -22,9 +12,12 @@
         <entry key="..\:/Users/user/Documents/OurApplication/app/src/main/res/layout/register.xml" value="0.2" />
         <entry key="..\:/Users/user/Documents/OurApplication/app/src/main/res/menu/cmenu.xml" value="0.176" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5911458333333334" />
+        <entry key="app/src/main/res/layout/activity_result.xml" value="0.21693840579710144" />
         <entry key="app/src/main/res/layout/activity_testing.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5911458333333334" />
-        <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.5911458333333334" />
+        <entry key="app/src/main/res/layout/fragment_mypage.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_mypagelist.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_mypageresult.xml" value="0.5911458333333334" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.5911458333333334" />
         <entry key="app/src/main/res/layout/fragment_testing.xml" value="0.5911458333333334" />
       </map>
@@ -35,5 +28,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.34375" />
+      </ProjectState>
+    </option>
   </component>
 </project>
