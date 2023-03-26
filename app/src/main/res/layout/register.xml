@@ -148,6 +148,7 @@
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:text="중복확인"
+            android:textColor="@color/black"
             android:id="@+id/regiCheck"
             android:backgroundTint="@color/lightYellow"
             />
@@ -158,6 +159,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnRegister"
         android:text="회원가입"
+        android:textColor="@color/black"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/lightYellow"

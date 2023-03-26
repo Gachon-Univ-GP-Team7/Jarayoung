@@ -4,14 +4,31 @@
 
 package com.example.ourapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TestingActivity extends AppCompatActivity {
+
+    private int permissioncheck = 1;
+    private String[] permissionArr = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            // 여러가지 권한 요청 시 Array에 추가한다.
+            // ex) Manifest.permission.ACCESS_COARSE_LOCATION
+    };
 
     private TextView HeaderText;
     private TextView HeaderDesc;
@@ -73,5 +90,40 @@ public class TestingActivity extends AppCompatActivity {
         wranTxt3.setText(warnList[2]);
         wranTxt4.setText(warnList[3]);
         wranTxt5.setText(warnList[4]);
+    }
+
+    public boolean hasPermissions(Context context, String...permissionArr){
+        if(context != null && permissionArr !=null){
+            for(String permission : permissionArr){
+                if(ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    private void getPermission(){
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                //Manifest.permission.ACCESS_COARSE_LOCATION
+        }, 1000);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(Build.VERSION.SDK_INT >= 23){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Log.d("permission", permissionArr[0] + "was " + grantResults[0]);
+                recreate();
+            }
+            else
+            {
+                Log.d("permission", "denied");
+                Toast.makeText(TestingActivity.this, "앱을 사용하기 위해서는 메모리 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+                getPermission();
+            }
+        }
     }
 }

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <TextView
+        android:id="@+id/myPageListTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_page_header"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="2dp"
+        android:textSize="12pt"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/myPageRecordListTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_page_list_desc"
+        android:layout_marginStart="25dp"
+        android:textSize="7pt"
+        app:layout_constraintTop_toBottomOf="@id/myPageListTxt"/>
+
+
+    <View
+        android:id="@+id/firstLine"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/myPageRecordListTxt"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/langDevTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lan_txt"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="2dp"
+        android:textSize="8pt"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/firstLine"/>
+
+    <LinearLayout
+        android:id="@+id/FileWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/langDevTxt"/>
+
+    <ScrollView
+        android:scrollbarFadeDuration = "0"
+        android:layout_width="match_parent"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="25dp"
+
+        android:scrollbarSize="10dp"
+        android:scrollbarThumbVertical="@color/lightYellow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/FileWrapper">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/voice1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:text="2022/08/20"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/voice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:text="2022/10/08"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/voice3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:text="2022/11/11"
+                tools:ignore="MissingConstraints" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <TextView
+        android:id="@+id/behavDevTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="208dp"
+        android:text="@string/behavior_txt"
+        android:layout_marginStart="25dp"
+        android:textColor="@color/black"
+        android:textSize="8pt"
+        app:layout_constraintTop_toBottomOf="@id/FileWrapper"
+        tools:layout_editor_absoluteX="81dp" />
+    <ScrollView
+        android:scrollbarFadeDuration = "0"
+        android:layout_width="match_parent"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarSize="10dp"
+        android:layout_marginStart="25dp"
+        android:scrollbarThumbVertical="@color/lightYellow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/behavDevTxt">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/video1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black"
+                android:text="2022/08/20"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/video2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:text="2022/10/08"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/video3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:text="2022/11/11"
+                tools:ignore="MissingConstraints" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
