@@ -20,14 +20,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ourapplication.Data.Test.GetTestViewRes;
+import com.example.ourapplication.Service.TestService;
+import com.example.ourapplication.Utils.SharedPreferenceManager;
+
+import java.io.IOException;
+
 public class TestingActivity extends AppCompatActivity {
+
+    TestService testService = new TestService();
+    private GetTestViewRes getTestViewRes;
+    private SharedPreferenceManager sharedPreferenceManager;
 
     private int permissioncheck = 1;
     private String[] permissionArr = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
-            // 여러가지 권한 요청 시 Array에 추가한다.
-            // ex) Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
     private TextView HeaderText;
@@ -48,17 +56,35 @@ public class TestingActivity extends AppCompatActivity {
 
         //인텐트에서 Extra 가져오기
         Intent intent = getIntent();
-        String testMode = intent.getStringExtra("testMode");
+
+        int testMode = intent.getIntExtra("testMode", 1);
+        sharedPreferenceManager = (SharedPreferenceManager) intent.getSerializableExtra(("shared"));
+
+        int userIdx = sharedPreferenceManager.getUserIdx();
+        new Thread(() -> {
+            try {
+                getTestViewRes = testService.callTestViewApi(userIdx, testMode);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         //View Element들 가져오기
         HeaderText = (TextView)findViewById(R.id.TestHeaderTxt);
         HeaderDesc = (TextView)findViewById(R.id.TestDescTxt);
-
-        //TODO: API에서 몇번째 테스트인지 받아와서 텍스트 바꿔주어야함 -> 서비스 API에서 가져와야함
         TestNumText = (TextView)findViewById(R.id.TestNumTxt);
 
-        //TODO: 버튼을 누르면 파일을 가져오게 해야함
         getFileBtn = (Button)findViewById(R.id.GetFileBtn);
+
+        getFileBtn.setOnClickListener(view -> {
+            //TODO: 로컬 파일 가져오기
+        });
 
         wranTxt1 = (TextView)findViewById(R.id.warnTxt1);
         wranTxt2 = (TextView)findViewById(R.id.warnTxt2);
@@ -66,13 +92,16 @@ public class TestingActivity extends AppCompatActivity {
         wranTxt4 = (TextView)findViewById(R.id.warnTxt4);
         wranTxt5 = (TextView)findViewById(R.id.warnTxt5);
 
-        //TODO: 이 버튼을 누르면 가져온 파일을 ML API로 전송해 테스트 결과를 받아와서 테스트 결과 페이지로 넘어가야함
         TestStartBtn = (Button)findViewById(R.id.ConductTestBtn);
+
+        TestStartBtn.setOnClickListener(view -> {
+            //TODO: 테스트 진행 API 바인딩
+        });
 
         String[] warnList;
 
         //영상 테스트일때
-        if(testMode.equalsIgnoreCase("VIDEO")){
+        if(testMode == 1){
             warnList = getResources().getStringArray(R.array.video_warn_list);
             HeaderText.setText(getResources().getString(R.string.move_test_header));
             HeaderDesc.setText(getResources().getString(R.string.move_test_desc));
@@ -83,6 +112,8 @@ public class TestingActivity extends AppCompatActivity {
             HeaderText.setText(getResources().getString(R.string.voice_test_header));
             HeaderDesc.setText(getResources().getString(R.string.voice_test_desc));
         }
+        // 실험 횟수 텍스트 세팅
+        TestNumText.setText(getTestViewRes.getTestCount() + "회차");
 
         //주의사항 텍스트 세팅
         wranTxt1.setText(warnList[0]);
@@ -90,6 +121,10 @@ public class TestingActivity extends AppCompatActivity {
         wranTxt3.setText(warnList[2]);
         wranTxt4.setText(warnList[3]);
         wranTxt5.setText(warnList[4]);
+
+        if(!hasPermissions(this, permissionArr)){
+            ActivityCompat.requestPermissions(this, permissionArr, permissioncheck);
+        }
     }
 
     public boolean hasPermissions(Context context, String...permissionArr){
@@ -106,7 +141,6 @@ public class TestingActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]{
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
-                //Manifest.permission.ACCESS_COARSE_LOCATION
         }, 1000);
     }
 

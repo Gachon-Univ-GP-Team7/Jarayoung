@@ -8,6 +8,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/main_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="15dp"
@@ -59,6 +60,7 @@
         android:layout_marginTop="280dp"/>
 
     <TextView
+        android:id="@+id/main_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="이름: 자라영"
@@ -66,6 +68,7 @@
         android:layout_marginTop="350dp"
         android:layout_marginStart="20dp"/>
     <TextView
+        android:id="@+id/main_birthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="생년월일: 2020-12:10"
@@ -73,6 +76,7 @@
         android:layout_marginTop="385dp"
         android:layout_marginStart="20dp"/>
     <TextView
+        android:id="@+id/main_age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="연령: 만 2세"
@@ -80,6 +84,7 @@
         android:layout_marginTop="420dp"
         android:layout_marginStart="20dp"/>
     <TextView
+        android:id="@+id/main_recent_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="최근 검사 일자 : 2022-12-12"
@@ -87,6 +92,7 @@
         android:layout_marginTop="455dp"
         android:layout_marginStart="20dp"/>
     <TextView
+        android:id="@+id/main_recent_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="최근 검사 결과 : (언어) 만 2세"
