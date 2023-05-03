@@ -117,6 +117,17 @@ public class HomeFragment extends Fragment {
 
         age.setText("연령: 만 " + babyAge + "세");
 
+        if(getMainViewRes[0].getLatestTestDay().equalsIgnoreCase("NULL")){
+            recentDate.setText("최근 검사 일자: N/A");
+
+            recentResult.setText("최근 검사 결과: N/A");
+        }
+        else{
+            recentDate.setText("최근 검사 일자: " + getMainViewRes[0].getLatestTestDay());
+
+            recentResult.setText("최근 검사 결과: 만" + getMainViewRes[0].getLatestTestResult() + "세");
+        }
+
         voiceButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), TestingActivity.class);
             intent.putExtra("testMode", 0);

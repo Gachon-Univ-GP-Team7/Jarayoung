@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ourapplication.Data.Test.GetTestViewRes;
+import com.example.ourapplication.Data.Test.PostTestRes;
 import com.example.ourapplication.Service.TestService;
 import com.example.ourapplication.Utils.SharedPreferenceManager;
 
@@ -30,6 +31,8 @@ public class TestingActivity extends AppCompatActivity {
 
     TestService testService = new TestService();
     private GetTestViewRes getTestViewRes;
+    private PostTestRes postTestRes;
+
     private SharedPreferenceManager sharedPreferenceManager;
 
     private int permissioncheck = 1;
@@ -94,10 +97,6 @@ public class TestingActivity extends AppCompatActivity {
 
         TestStartBtn = (Button)findViewById(R.id.ConductTestBtn);
 
-        TestStartBtn.setOnClickListener(view -> {
-            //TODO: 테스트 진행 API 바인딩
-        });
-
         String[] warnList;
 
         //영상 테스트일때
@@ -125,6 +124,37 @@ public class TestingActivity extends AppCompatActivity {
         if(!hasPermissions(this, permissionArr)){
             ActivityCompat.requestPermissions(this, permissionArr, permissioncheck);
         }
+
+        TestStartBtn.setOnClickListener(view -> {
+            Log.d("Testing", "Test Start");
+            //테스트 API 바인딩
+            new Thread(() -> {
+                try {
+                    postTestRes = testService.callTestApi(sharedPreferenceManager.getUserIdx(), testMode);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            //음성이냐 영상이냐에 따라서 인플레이트 다르게
+            Intent intent1 = new Intent(TestingActivity.this, ResultActivity.class);
+            if(testMode == 0){ //음성
+                intent1.putExtra("testMode", "VOICE");
+
+            }
+            else{
+                intent1.putExtra("testMode", "VIDEO");
+
+            }
+            intent1.putExtra("testIdx", postTestRes.getTestIdx());
+            startActivity(intent1);
+        });
     }
 
     public boolean hasPermissions(Context context, String...permissionArr){

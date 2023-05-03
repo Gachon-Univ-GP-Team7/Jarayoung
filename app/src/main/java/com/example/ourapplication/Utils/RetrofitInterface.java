@@ -6,6 +6,7 @@ import com.example.ourapplication.Data.Test.GetTestListRes;
 import com.example.ourapplication.Data.Test.GetTestViewRes;
 import com.example.ourapplication.Data.Test.GetVideoDetailRes;
 import com.example.ourapplication.Data.Test.GetVoiceDetailRes;
+import com.example.ourapplication.Data.Test.PostTestRes;
 import com.example.ourapplication.Data.auth.PostApplyReq;
 import com.example.ourapplication.Data.auth.PostApplyRes;
 import com.example.ourapplication.Data.auth.PostLoginReq;
@@ -52,5 +53,9 @@ public interface RetrofitInterface {
     //Test View Api
     @GET("test/testView")
     Call<BaseResponse<GetTestViewRes>> getTestViewApi(@Query("userIdx") int userIdx, @Query("testMode") int testMode);
+
+    //Testing Api
+    @POST("test/")
+    Call<BaseResponse<PostTestRes>> postTestApi(@Query("userIdx") int userIdx, @Query("testMode") int testMode);
 
 }

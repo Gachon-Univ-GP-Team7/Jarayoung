@@ -8,6 +8,7 @@ import com.example.ourapplication.Data.Test.GetTestListRes;
 import com.example.ourapplication.Data.Test.GetTestViewRes;
 import com.example.ourapplication.Data.Test.GetVideoDetailRes;
 import com.example.ourapplication.Data.Test.GetVoiceDetailRes;
+import com.example.ourapplication.Data.Test.PostTestRes;
 import com.example.ourapplication.Utils.NetworkModule;
 import com.example.ourapplication.Utils.RetrofitInterface;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public class TestService {
@@ -28,6 +30,8 @@ public class TestService {
     private GetVoiceDetailRes getVoiceDetailRes;
     private GetVideoDetailRes getVideoDetailRes;
     private GetTestViewRes getTestViewRes;
+
+    private PostTestRes postTestRes;
 
     //Test List Api
     public GetTestListRes callTestListApi(int userIdx) throws IOException {
@@ -56,7 +60,6 @@ public class TestService {
     }
 
     //Test Detail - Voice
-    @GET("/test/voiceTestRecord/{voiceTestIdx}")
     public GetVoiceDetailRes callVoiceDetailApi(int voiceTestIdx) throws IOException {
         if(networkModule != null){
             retrofitInterface = NetworkModule.getRetrofitAPI();
@@ -68,7 +71,6 @@ public class TestService {
     }
 
     //Test Detail - Voice
-    @GET("/test/videoTestRecord/{videoTestIdx}")
     public GetVideoDetailRes callVideoDetailApi(int videoTestIdx) throws IOException {
         if(networkModule != null){
             retrofitInterface = NetworkModule.getRetrofitAPI();
@@ -79,7 +81,6 @@ public class TestService {
         return getVideoDetailRes;
     }
     //Test View Api
-    @GET("/test/testView")
     public GetTestViewRes callTestViewApi(int userIdx, int testMode) throws IOException {
         if(networkModule != null){
             retrofitInterface = NetworkModule.getRetrofitAPI();
@@ -88,5 +89,16 @@ public class TestService {
         }
 
         return getTestViewRes;
+    }
+
+    //Test Api
+    public PostTestRes callTestApi(int userIdx, int testMode) throws IOException {
+        if(networkModule != null){
+            retrofitInterface = NetworkModule.getRetrofitAPI();
+
+            postTestRes = Objects.requireNonNull(retrofitInterface.postTestApi(userIdx, testMode).execute().body()).getResult();
+        }
+
+        return postTestRes;
     }
 }

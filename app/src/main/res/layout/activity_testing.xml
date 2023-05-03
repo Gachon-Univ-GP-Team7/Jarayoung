@@ -83,7 +83,7 @@
             />
 
         <Button
-            android:id="@+id/ConductTestBtn"
+            android:id="@+id/GetFileBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -156,7 +156,7 @@
         app:layout_constraintTop_toBottomOf="@id/warnTxt4"/>
 
     <Button
-        android:id="@+id/GetFileBtn"
+        android:id="@+id/ConductTestBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
