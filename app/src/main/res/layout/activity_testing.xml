@@ -91,6 +91,38 @@
             android:layout_marginStart="20dp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/FileMakeWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/FileWrapper">
+
+        <TextView
+            android:id="@+id/FileMakeTxt"
+            android:layout_width="220dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:hint="@string/video_make_txt"
+            android:textSize="8pt"
+            android:paddingStart="5dp"
+            android:paddingBottom="0dp"
+            android:paddingEnd="0dp"
+            android:paddingTop="0dp"
+            android:textAlignment="center"
+            />
+
+        <Button
+            android:id="@+id/MakeFileBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/make_file_btn"
+            android:layout_marginStart="20dp"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/WarnHeaderTxt"
         android:layout_width="match_parent"

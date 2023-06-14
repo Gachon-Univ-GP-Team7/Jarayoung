@@ -63,23 +63,23 @@ public class MypagelistFragment extends Fragment {
             throw new RuntimeException(e);
         }
 
-        List<TestList> voiceTestList = getTestListRes.getVoiceTestList();
-        List<TestList> videoTestList = getTestListRes.getVideoTestList();
+        if(!getTestListRes.getVoiceTestList().isEmpty()){
+            List<TestList> voiceTestList = getTestListRes.getVoiceTestList();
+            RecyclerView voiceRecyclerView = rootView.findViewById(R.id.voiceRecycle);
+            LinearLayoutManager linearLayoutManagerVoice = new LinearLayoutManager(getActivity());
+            voiceRecyclerView.setLayoutManager(linearLayoutManagerVoice);
+            VoiceLsitAdapter voiceListAdapter = new VoiceLsitAdapter((MainActivity) getActivity(), voiceTestList);
+            voiceRecyclerView.setAdapter(voiceListAdapter);
 
-        RecyclerView voiceRecyclerView = rootView.findViewById(R.id.voiceRecycle);
-        RecyclerView videoRecyclerView = rootView.findViewById(R.id.videoRecycle);
-
-        LinearLayoutManager linearLayoutManagerVoice = new LinearLayoutManager(getActivity());
-        LinearLayoutManager linearLayoutManagerVideo = new LinearLayoutManager(getActivity());
-
-        voiceRecyclerView.setLayoutManager(linearLayoutManagerVoice);
-        videoRecyclerView.setLayoutManager(linearLayoutManagerVideo);
-
-        VoiceLsitAdapter voiceListAdapter = new VoiceLsitAdapter((MainActivity) getActivity(), voiceTestList);
-        VideoListAdapter videoListAdapter = new VideoListAdapter((MainActivity) getActivity(), videoTestList);
-
-        voiceRecyclerView.setAdapter(voiceListAdapter);
-        videoRecyclerView.setAdapter(videoListAdapter);
+        }
+        if(!getTestListRes.getVideoTestList().isEmpty()){
+            List<TestList> videoTestList = getTestListRes.getVideoTestList();
+            RecyclerView videoRecyclerView = rootView.findViewById(R.id.videoRecycle);
+            LinearLayoutManager linearLayoutManagerVideo = new LinearLayoutManager(getActivity());
+            videoRecyclerView.setLayoutManager(linearLayoutManagerVideo);
+            VideoListAdapter videoListAdapter = new VideoListAdapter((MainActivity) getActivity(), videoTestList);
+            videoRecyclerView.setAdapter(videoListAdapter);
+        }
 
         // Inflate the layout for this fragment
         return rootView;

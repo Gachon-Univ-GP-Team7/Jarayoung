@@ -1,11 +1,17 @@
 package com.example.ourapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,13 +45,16 @@ public class MypageFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private SharedPreferenceManager sharedPreferenceManager;
+
+    private volatile GetTestGraphRes testGraphRes;
+
     private final TestService testService = new TestService();
-    private GetTestGraphRes testGraphRes;
+
+    private LineChart lineChart1;
+    private LineChart lineChart2;
 
     MainActivity mainActivity;
     private ImageButton cal_btn;
-    private LineChart lineChart1;
-    private LineChart lineChart2;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -88,6 +97,8 @@ public class MypageFragment extends Fragment {
         if (getArguments() != null) {
             sharedPreferenceManager = (SharedPreferenceManager) getArguments().getSerializable("shared");
         }
+
+
     }
 
     @Override
@@ -95,15 +106,17 @@ public class MypageFragment extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_mypage, container, false);
 
-        new Thread(() -> {
-            try {
-                Log.d("Graph", Integer.toString(sharedPreferenceManager.getUserIdx()));
-
-                testGraphRes = testService.callTestGraphApi(sharedPreferenceManager.getUserIdx());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        Thread th = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    testGraphRes = testService.callTestGraphApi(sharedPreferenceManager.getUserIdx());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }).start();
+        });
+        th.start();
 
         try {
             Thread.sleep(2000);
@@ -111,8 +124,15 @@ public class MypageFragment extends Fragment {
             throw new RuntimeException(e);
         }
 
-        drawChart1(rootView, testGraphRes.getVoiceGraphList());
-        drawChart2(rootView, testGraphRes.getVideoGraphList());
+        Log.e("api", testGraphRes.toString());
+
+        if(!testGraphRes.getVoiceGraphList().isEmpty())
+            drawChart1(rootView, testGraphRes.getVoiceGraphList());
+        if(!testGraphRes.getVideoGraphList().isEmpty())
+            drawChart2(rootView, testGraphRes.getVideoGraphList());
+
+
+
 
         cal_btn = rootView.findViewById(R.id.calendarImage);
 
@@ -123,7 +143,15 @@ public class MypageFragment extends Fragment {
             }
         });
 
+
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
     }
 
     public void drawChart1(ViewGroup rootView, List<TestGraph> voiceGraphList){
@@ -226,3 +254,4 @@ public class MypageFragment extends Fragment {
 
     }
 }
+

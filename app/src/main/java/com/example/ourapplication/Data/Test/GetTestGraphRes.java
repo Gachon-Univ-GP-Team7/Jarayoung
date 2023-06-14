@@ -22,4 +22,12 @@ public class GetTestGraphRes {
     public List<TestGraph> getVideoGraphList() {
         return videoGraphList;
     }
+
+    @Override
+    public String toString() {
+        return "GetTestGraphRes{" +
+                "voiceGraphList=" + voiceGraphList.toString() +
+                ", videoGraphList=" + videoGraphList.toString() +
+                '}';
+    }
 }

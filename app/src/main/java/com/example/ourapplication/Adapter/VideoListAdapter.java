@@ -119,7 +119,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         String text = dataSet.get(position * 3).getTestDate().split(" ")[0];
         holder.button1.setText(text);
 
-        if(position + 1 < dataSet.size()) {
+        if(position * 3 + 1 < dataSet.size()) {
             text = dataSet.get(position * 3 + 1).getTestDate().split(" ")[0];
             Log.d("Recycler", text);
             holder.button2.setText(text);
@@ -127,7 +127,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         else
             holder.button2.setVisibility(View.GONE);
 
-        if(position + 2 < dataSet.size()) {
+        if(position * 3 + 2 < dataSet.size()) {
             text = dataSet.get(position * 3 + 2).getTestDate().split(" ")[0];
             holder.button3.setText(text);
         }

@@ -120,19 +120,23 @@ public class VoiceLsitAdapter extends RecyclerView.Adapter<VoiceLsitAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull VoiceLsitAdapter.ViewHolder holder, int position) {
-        String text = dataSet.get(position * 3).getTestDate().split(" ")[0];
-        holder.button1.setText(text);
+        Log.d("View", "onBindViewHolder: " + position);
 
-        if(position + 1 < dataSet.size()) {
-            text = dataSet.get(position * 3 + 1).getTestDate().split(" ")[0];
+        if(position * 3 < dataSet.size()) {
+            String text = dataSet.get(position * 3).getTestDate().split(" ")[0];
+            holder.button1.setText(text);
+        }
+
+        if(position * 3 + 1 < dataSet.size()) {
+            String text = dataSet.get(position * 3 + 1).getTestDate().split(" ")[0];
             Log.d("Recycler", text);
             holder.button2.setText(text);
         }
         else
             holder.button2.setVisibility(View.GONE);
 
-        if(position + 2 < dataSet.size()) {
-            text = dataSet.get(position * 3 + 2).getTestDate().split(" ")[0];
+        if(position * 3 + 2 < dataSet.size()) {
+            String text = dataSet.get(position * 3 + 2).getTestDate().split(" ")[0];
             holder.button3.setText(text);
         }
         else
