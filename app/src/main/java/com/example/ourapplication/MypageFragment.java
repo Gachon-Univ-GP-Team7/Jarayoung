@@ -1,16 +1,27 @@
 package com.example.ourapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.example.ourapplication.Data.Test.GetTestGraphRes;
+import com.example.ourapplication.Data.Test.TestGraph;
+import com.example.ourapplication.Service.TestService;
+import com.example.ourapplication.Utils.SharedPreferenceManager;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -20,6 +31,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +44,17 @@ public class MypageFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private SharedPreferenceManager sharedPreferenceManager;
+
+    private volatile GetTestGraphRes testGraphRes;
+
+    private final TestService testService = new TestService();
+
+    private LineChart lineChart1;
+    private LineChart lineChart2;
 
     MainActivity mainActivity;
     private ImageButton cal_btn;
-    private LineChart lineChart1;
-    private LineChart lineChart2;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -52,16 +68,13 @@ public class MypageFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment mypageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MypageFragment newInstance(String param1, String param2) {
+    public static MypageFragment newInstance(SharedPreferenceManager sharedPreferenceManager) {
         MypageFragment fragment = new MypageFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable("shared", sharedPreferenceManager);
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,9 +95,10 @@ public class MypageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            sharedPreferenceManager = (SharedPreferenceManager) getArguments().getSerializable("shared");
         }
+
+
     }
 
     @Override
@@ -92,30 +106,64 @@ public class MypageFragment extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_mypage, container, false);
 
-        drawChart1(rootView);
-        drawChart2(rootView);
+        Thread th = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    testGraphRes = testService.callTestGraphApi(sharedPreferenceManager.getUserIdx());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        th.start();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        Log.e("api", testGraphRes.toString());
+
+        if(!testGraphRes.getVoiceGraphList().isEmpty())
+            drawChart1(rootView, testGraphRes.getVoiceGraphList());
+        if(!testGraphRes.getVideoGraphList().isEmpty())
+            drawChart2(rootView, testGraphRes.getVideoGraphList());
+
+
+
 
         cal_btn = rootView.findViewById(R.id.calendarImage);
 
         cal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.fragmentChange(1);
+                ((MainActivity)getActivity()).fragmentChange(MypagelistFragment.newInstance(sharedPreferenceManager));
             }
         });
+
 
         return rootView;
     }
 
-    public void drawChart1(ViewGroup rootView){
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+    }
+
+    public void drawChart1(ViewGroup rootView, List<TestGraph> voiceGraphList){
         lineChart1 = (LineChart) rootView.findViewById(R.id.voiceChart);
 
         List<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(1, 1));
-        entries.add(new Entry(2, 2));
-        entries.add(new Entry(3, 0));
-        entries.add(new Entry(4, 4));
-        entries.add(new Entry(5, 3));
+        int idx = 1;
+
+        for(TestGraph element : voiceGraphList){
+            entries.add(new Entry(idx, element.getOverallScore()));
+            idx++;
+        }
 
         LineDataSet lineDataSet = new LineDataSet(entries, "발달 점수");
         lineDataSet.setLineWidth(2);
@@ -156,15 +204,16 @@ public class MypageFragment extends Fragment {
 
     }
 
-    public void drawChart2(ViewGroup rootView){
+    public void drawChart2(ViewGroup rootView, List<TestGraph> videoGraphList){
         lineChart2 = (LineChart) rootView.findViewById(R.id.videoChart);
 
         List<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(1, 1));
-        entries.add(new Entry(2, 2));
-        entries.add(new Entry(3, 0));
-        entries.add(new Entry(4, 4));
-        entries.add(new Entry(5, 3));
+        int idx = 1;
+
+        for(TestGraph element : videoGraphList){
+            entries.add(new Entry(idx, element.getOverallScore()));
+            idx++;
+        }
 
         LineDataSet lineDataSet = new LineDataSet(entries, "발달 점수");
         lineDataSet.setLineWidth(2);
@@ -205,3 +254,4 @@ public class MypageFragment extends Fragment {
 
     }
 }
+

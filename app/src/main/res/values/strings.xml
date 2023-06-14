@@ -11,7 +11,11 @@
     <string name="get_video_txt">영상 파일 가져오기</string>
     <string name="get_voice_txt">음성 파일 가져오기</string>
     <string name="file_path_txt">파일 경로</string>
+    <string name="voice_make_txt">음성 파일 녹음하기</string>
+    <string name="video_make_txt">영상 파일 촬영하기</string>
+
     <string name="get_file_btn">가져오기</string>
+    <string name="make_file_btn">촬영하기</string>
     <string name="warn_header_txt">주의사항</string>
     <string-array name="video_warn_list">
         <item>1. 주의사항 1</item>

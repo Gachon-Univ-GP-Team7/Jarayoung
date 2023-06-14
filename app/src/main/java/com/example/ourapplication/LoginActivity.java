@@ -1,36 +1,32 @@
 package com.example.ourapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.ourapplication.Data.auth.PostLoginReq;
+import com.example.ourapplication.Data.auth.PostLoginRes;
+import com.example.ourapplication.Service.AuthService;
+import com.example.ourapplication.Utils.SharedPreferenceManager;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth mFirebaseAuth; //파이어베이스 인증
-    private DatabaseReference mDatabaseRef; //실시간 데이터 베이스 서버에 연동시킬 수 있는 객체
+    private final AuthService authService = new AuthService();
+    private final SharedPreferenceManager shared = new SharedPreferenceManager();
     private EditText edtEmail, edtPassword; //로그인 입력 필드
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("OurApplication");
 
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPW);
@@ -43,19 +39,33 @@ public class LoginActivity extends AppCompatActivity {
                 String strEmail = edtEmail.getText().toString();
                 String strPwd = edtPassword.getText().toString();
 
-                mFirebaseAuth.signInWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            //로그인 성공!
-                            Intent intent =  new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish(); //현재 액티비티 파괴
-                        } else{
-                            Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                Log.d("Login", strEmail);
+                Log.d("Login", strPwd);
+
+                //TODO: Login API 바인딩
+                PostLoginReq postLoginReq = new PostLoginReq(strEmail, strPwd);
+                final PostLoginRes[] postLoginRes = new PostLoginRes[1];
+
+                new Thread(() -> {
+                    try {
+                        postLoginRes[0] = authService.callLoginApi(postLoginReq);
+
+                        Log.d("Login", Integer.toString(postLoginRes[0].getUserIdx()));
+                        shared.setUserIdx(postLoginRes[0].getUserIdx());
+
+                        if(!postLoginRes[0].isLoginSuccess()) {
+                            Toast onLoginFail = Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG);
+                            onLoginFail.show();
                         }
+                        else{
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("shared", shared);
+                            startActivity(intent);
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
-                });
+                }).start();
             }
         });
 

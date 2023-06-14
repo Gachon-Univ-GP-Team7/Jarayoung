@@ -1,49 +1,37 @@
 package com.example.ourapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.ourapplication.Adapter.VideoListAdapter;
+import com.example.ourapplication.Adapter.VoiceLsitAdapter;
+import com.example.ourapplication.Data.Test.GetTestListRes;
+import com.example.ourapplication.Data.Test.TestList;
+import com.example.ourapplication.Service.TestService;
+import com.example.ourapplication.Utils.SharedPreferenceManager;
+
+import java.io.IOException;
+import java.util.List;
 
 public class MypagelistFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private TestService testService = new TestService();
 
-    private Button voice1;
-    private Button voice2;
-    private Button voice3;
-    private Button video1;
-    private Button video2;
-    private Button video3;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private SharedPreferenceManager sharedPreferenceManager;
+    private GetTestListRes getTestListRes;
 
     public MypagelistFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettingFragment newInstance(String param1, String param2) {
-        SettingFragment fragment = new SettingFragment();
+    public static MypagelistFragment newInstance(SharedPreferenceManager sharedPreferenceManager) {
+        MypagelistFragment fragment = new MypagelistFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable("shared", sharedPreferenceManager);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +40,7 @@ public class MypagelistFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            sharedPreferenceManager = (SharedPreferenceManager) getArguments().getSerializable("shared");
         }
     }
 
@@ -62,72 +49,38 @@ public class MypagelistFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_mypagelist, container, false);
 
-        voice1 = rootView.findViewById(R.id.voice1);
-        voice2 = rootView.findViewById(R.id.voice2);
-        voice3 = rootView.findViewById(R.id.voice3);
-        video1 = rootView.findViewById(R.id.video1);
-        video2 = rootView.findViewById(R.id.video2);
-        video3 = rootView.findViewById(R.id.video3);
-
-        voice1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ResultActivity.class);
-                intent.putExtra("testMode", "VOICE");
-                intent.putExtra("testDate", voice1.getText());
-                startActivity(intent);
+        new Thread(() -> {
+            try {
+                getTestListRes = testService.callTestListApi(sharedPreferenceManager.getUserIdx());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        });
+        }).start();
 
-        voice2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ResultActivity.class);
-                intent.putExtra("testMode", "VOICE");
-                intent.putExtra("testDate", voice2.getText());
-                startActivity(intent);
-            }
-        });
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        voice3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ResultActivity.class);
-                intent.putExtra("testMode", "VOICE");
-                intent.putExtra("testDate", voice3.getText());
-                startActivity(intent);
-            }
-        });
+        if(!getTestListRes.getVoiceTestList().isEmpty()){
+            List<TestList> voiceTestList = getTestListRes.getVoiceTestList();
+            RecyclerView voiceRecyclerView = rootView.findViewById(R.id.voiceRecycle);
+            LinearLayoutManager linearLayoutManagerVoice = new LinearLayoutManager(getActivity());
+            voiceRecyclerView.setLayoutManager(linearLayoutManagerVoice);
+            VoiceLsitAdapter voiceListAdapter = new VoiceLsitAdapter((MainActivity) getActivity(), voiceTestList);
+            voiceRecyclerView.setAdapter(voiceListAdapter);
 
-        video1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ResultActivity.class);
-                intent.putExtra("testMode", "VIDEO");
-                intent.putExtra("testDate", video1.getText());
-                startActivity(intent);
-            }
-        });
+        }
+        if(!getTestListRes.getVideoTestList().isEmpty()){
+            List<TestList> videoTestList = getTestListRes.getVideoTestList();
+            RecyclerView videoRecyclerView = rootView.findViewById(R.id.videoRecycle);
+            LinearLayoutManager linearLayoutManagerVideo = new LinearLayoutManager(getActivity());
+            videoRecyclerView.setLayoutManager(linearLayoutManagerVideo);
+            VideoListAdapter videoListAdapter = new VideoListAdapter((MainActivity) getActivity(), videoTestList);
+            videoRecyclerView.setAdapter(videoListAdapter);
+        }
 
-        video2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ResultActivity.class);
-                intent.putExtra("testMode", "VIDEO");
-                intent.putExtra("testDate", video2.getText());
-                startActivity(intent);
-            }
-        });
-
-        video3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ResultActivity.class);
-                intent.putExtra("testMode", "VIDEO");
-                intent.putExtra("testDate", video3.getText());
-                startActivity(intent);
-            }
-        });
         // Inflate the layout for this fragment
         return rootView;
     }

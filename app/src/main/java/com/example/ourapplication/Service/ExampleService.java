@@ -26,7 +26,7 @@ public class ExampleService {
                 public void onResponse(@NonNull Call<BaseResponse<String>> call, @NonNull Response<BaseResponse<String>> response) {
                     BaseResponse<String> data = response.body();
 
-                    Log.d("API Test: ", data.getResult());
+                    Log.d("API Test: ", data.getResult().toString());
 
                     result[0] = data.getResult();
                 }
